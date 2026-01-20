@@ -381,7 +381,7 @@ const exportreportPdf = async () => {
                     <td>{{ record.gender }}</td>
                     <td>{{ record.motherName }}</td>
                     <td>
-                      <button class="btn btn-secondary btn-sm me-2" @click="editRecordFunc(record)">Edit</button>
+                      <button v-if="userRole === 'BHW'" class="btn btn-secondary btn-sm me-2" @click="editRecordFunc(record)">Edit</button>
                       <button v-if="userRole === 'Admin'" class="btn btn-danger btn-sm me-2" @click="deleteRecord(record)">Delete</button>
                       <button v-if="userRole === 'Admin'" class="btn btn-warning btn-sm" @click="archiveRecord(record)">Archive</button>
                     </td>

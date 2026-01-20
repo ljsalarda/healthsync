@@ -376,7 +376,7 @@ const exportreportPdf = async () => {
                 <option value="Purok 1">Purok 1</option>
                 <option value="Purok 2">Purok 2</option>
                 <option value="Purok 3">Purok 3</option>
-                <option value="Purok 4">Purok 4</option>
+                <option value="Purok 5">Purok 5</option>
               </select></th>
                     <th>Last Name</th>
                     <th>First Name</th>
@@ -421,7 +421,7 @@ const exportreportPdf = async () => {
                     <td>{{ record.fbDate }}</td>
                     <td>{{ record.changeMethod }}</td>
                     <td>
-                      <button class="btn btn-secondary btn-sm me-2" @click="editRecordFunc(record)">Edit</button>
+                      <button v-if="userRole === 'BHW'" class="btn btn-secondary btn-sm me-2" @click="editRecordFunc(record)">Edit</button>
                       <button v-if="userRole === 'Admin'" class="btn btn-danger btn-sm me-2" @click="deleteRecord(record)">Delete</button>
                       <button v-if="userRole === 'Admin'" class="btn btn-warning btn-sm" @click="archiveRecord(record)">Archive</button>
                     </td>
@@ -453,7 +453,7 @@ const exportreportPdf = async () => {
                         <option value="Purok 1">Purok 1</option>
                         <option value="Purok 2">Purok 2</option>
                         <option value="Purok 3">Purok 3</option>
-                        <option value="Purok 4">Purok 4</option>
+                        <option value="Purok 5">Purok 5</option>
                       </select>
                     </div>
                     <div class="col-md-6 mb-3">

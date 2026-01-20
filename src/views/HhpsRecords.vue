@@ -414,7 +414,7 @@ const exportreportPdf = async () => {
                     <td>{{ record.male_count }}</td>
                     <td>
                       <button class="btn btn-primary btn-sm me-2" @click="viewMembers(record)">View Members</button>
-                      <button class="btn btn-secondary btn-sm me-2" @click="editRecord(record)">Edit</button>
+                      <button v-if="userRole === 'BHW'" class="btn btn-secondary btn-sm me-2" @click="editRecord(record)">Edit</button>
                       <button v-if="userRole === 'Admin'" class="btn btn-danger btn-sm me-2" @click="deleteRecord(record)">Delete</button>
                       <button v-if="userRole === 'Admin'" class="btn btn-warning btn-sm" @click="archiveRecord(record)">Archive</button>
                     </td>
@@ -431,7 +431,7 @@ const exportreportPdf = async () => {
 
         <!-- Modal for Members -->
         <div class="modal fade show d-block" tabindex="-1" v-if="showMembersModal" style="background: rgba(0,0,0,0.6)">
-          <div class="modal-dialog modal-lg">
+          <div class="modal-dialog modal-xl" style="max-width: 90vw; top: 100px;">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title">Members of: {{ selectedHead.firstname }} {{ selectedHead.lastname }}</h5>
