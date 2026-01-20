@@ -147,7 +147,7 @@ async function saveProfile() {
     <v-app>
       <!-- TOP NAVIGATION -->
       <v-app-bar app color="#5b841e" height="90" class="d-flex align-center px-4">
-        <router-link to="/" class="logo-link">
+        <router-link to="/home" class="logo-link">
           <img src="/images/logo.png" alt="logo" class="header-logo ml-16" />
         </router-link>
 

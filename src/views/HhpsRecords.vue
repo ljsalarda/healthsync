@@ -614,16 +614,19 @@ const exportreportPdf = async () => {
 }
 .back-btn {
   position: absolute;
-  top: 15px;
-  left: 15px;
-  background: transparent;
-  border: none;
+  top: 100px;
+  left: -50px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ccc;
+  border-radius: 6px;
   font-weight: bold;
   color: #000;
   font-size: 1.35rem;
   padding: 0.5rem 0.9rem;
   cursor: pointer;
   transition: transform 0.2s;
+  z-index: 2001;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 .back-btn:hover {
   transform: scale(1.1);
@@ -638,22 +641,24 @@ const exportreportPdf = async () => {
 
 .export-small-btn {
   position: absolute;
-  top: 12px;
+  top: 100px;
   right: 12px;
   background-color: rgba(43, 122, 11, 0.95);
   color: #fff;
   border: none;
-  padding: 0.25rem 0.45rem;
+  padding: 0.5rem 0.75rem;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 700;
-  font-size: 0.85rem;
+  font-size: 1rem;
   line-height: 1;
-  min-width: 36px;
-  height: 32px;
+  min-width: 48px;
+  height: 40px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  z-index: 2001;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 .export-small-btn:hover { background-color: #236008 }
 

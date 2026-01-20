@@ -188,7 +188,7 @@ onMounted(async () => {
   <DashboardView>
     <div class="inventory-bg">
       <div class="inventory-card">
-        <h2>Medicine Stocks</h2>
+        <h2 class="text-center">Medicine Stocks</h2>
         <div class="scrollable-content">
           <div class="medicine-list">
             <div 
@@ -213,7 +213,7 @@ onMounted(async () => {
       </div>
 
       <div class="inventory-card">
-        <h2>Tools Available</h2>
+        <h2 class="text-center">Tools Available</h2>
         <div class="scrollable-content">
           <div class="tools-list">
             <div 
