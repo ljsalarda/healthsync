@@ -122,7 +122,7 @@ onMounted(async () => {
               development of children in the community.
             </em>
           </p>
-          <!-- Vitamin A Supplementation Dropdown 
+          <!-- Vitamin A Supplementation Dropdown -->
           <div class="dropdown-container">
             <button class="record-btn" @click="openMenu('vitamina')">
               Vitamin A Supplementation <span>⋮</span>
@@ -131,7 +131,7 @@ onMounted(async () => {
               <button v-if="userRole === 'BHW'" @click="fillIn('vitamina')">Fill In</button>
               <button @click="viewRecords('vitamina')">View Records</button>
             </div>
-          </div>-->
+          </div>
         </div>
       </div>
     </div>
