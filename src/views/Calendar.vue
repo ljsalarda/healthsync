@@ -6,6 +6,8 @@ import { supabase } from '@/utils/supabase'
 
 const monthRef = ref(null)
 const startDate = ref("2026-10-01")
+const currentMonth = ref(10) // October
+const currentYear = ref(2026)
 const events = ref([])
 const showEventModal = ref(false)
 const modalMode = ref('add') // 'add' or 'edit'
@@ -339,6 +341,41 @@ async function loadEvents() {
 
 const eventList = computed(() => events.value)
 
+const updateStartDate = () => {
+  startDate.value = `${currentYear.value}-${String(currentMonth.value).padStart(2, '0')}-01`
+}
+
+const previousMonth = () => {
+  if (currentMonth.value === 1) {
+    currentMonth.value = 12
+    currentYear.value--
+  } else {
+    currentMonth.value--
+  }
+  updateStartDate()
+}
+
+const nextMonth = () => {
+  if (currentMonth.value === 12) {
+    currentMonth.value = 1
+    currentYear.value++
+  } else {
+    currentMonth.value++
+  }
+  updateStartDate()
+}
+
+const goToMonth = (month, year) => {
+  currentMonth.value = month
+  currentYear.value = year
+  updateStartDate()
+}
+
+const monthNames = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'
+]
+
 onMounted(async () => {
   try {
     // fetch current user and set role
@@ -359,7 +396,21 @@ onMounted(async () => {
 <template>
   <DashboardView>
     <div class="calendar-bg gap-4">
-      <div class="calendar-box">
+      <div class="calendar-box" style="height: 70vh;">
+        <!-- Calendar Navigation -->
+        <div class="calendar-nav">
+          <button @click="previousMonth" class="nav-btn">&larr;</button>
+          <div class="month-year-display">
+            <select v-model="currentMonth" @change="updateStartDate" class="month-select">
+              <option v-for="(month, index) in monthNames" :key="index" :value="index + 1">
+                {{ month }}
+              </option>
+            </select>
+            <input v-model.number="currentYear" @change="updateStartDate" type="number" class="year-input" min="2000" max="2030">
+          </div>
+          <button @click="nextMonth" class="nav-btn">&rarr;</button>
+        </div>
+
         <DayPilotMonth
           ref="monthRef"
           :startDate="startDate"
@@ -376,7 +427,7 @@ onMounted(async () => {
       </div>
 
       <!-- Event list sidebar -->
-      <div class="event-list-container" ref="scrollContainer">
+      <div class="event-list-container" style="height: 70vh;" ref="scrollContainer">
         <h3>Events</h3>
         <div class="event-list-scroll">
           <div v-for="event in eventList" :key="event.id" class="event-item" :style="{ borderLeft: '6px solid ' + (colors[event.type] || '#3c78d8') }">
@@ -439,6 +490,60 @@ onMounted(async () => {
   overflow: auto; /* scrolls if content exceeds */
   display: flex;
   flex-direction: column;
+}
+
+.calendar-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 10px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.nav-btn {
+  background: #3c78d8;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  width: 35px;
+  height: 35px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.nav-btn:hover {
+  background: #2c5aa0;
+}
+
+.month-year-display {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.month-select {
+  padding: 5px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: white;
+  font-size: 16px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.year-input {
+  padding: 5px 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: white;
+  font-size: 16px;
+  font-weight: 600;
+  color: #334155;
+  width: 80px;
+  text-align: center;
 }
 
 .event-list-container {
