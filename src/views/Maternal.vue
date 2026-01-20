@@ -43,6 +43,9 @@ const cervicalAge = ref('')
 const cervicalBirthdate = ref('')
 const cervicalScreened = ref('')
 
+// Purok options
+const purokOptions = ['Purok 1', 'Purok 2', 'Purok 3', 'Purok 4']
+
 // Navigation
 const goPrevPage = () => router.push('/householdprofile')
 const goNextPage = () => router.push('/childcare')
@@ -255,7 +258,13 @@ onMounted(async () => {
           <div class="row-fields">
             <div class="form-group">
               <label>Purok:</label>
-              <input type="text" v-model="purok" class="input-stroke" />
+              <select v-model="purok" class="input-stroke">
+                <option value="">Select Purok</option>
+                <option value="Purok 1">Purok 1</option>
+                <option value="Purok 2">Purok 2</option>
+                <option value="Purok 3">Purok 3</option>
+                <option value="Purok 4">Purok 4</option>
+              </select>
             </div>
           </div>
           <div class="row-fields">
@@ -391,7 +400,13 @@ onMounted(async () => {
           <div class="row-fields">
             <div class="form-group">
               <label>Purok:</label>
-              <input type="text" v-model="cervicalPurok" class="input-stroke" />
+              <select v-model="cervicalPurok" class="input-stroke">
+                <option value="">Select Purok</option>
+                <option value="Purok 1">Purok 1</option>
+                <option value="Purok 2">Purok 2</option>
+                <option value="Purok 3">Purok 3</option>
+                <option value="Purok 4">Purok 4</option>
+              </select>
             </div>
           </div>
           <div class="row-fields">

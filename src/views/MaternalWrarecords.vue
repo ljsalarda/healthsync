@@ -376,7 +376,7 @@ const exportreportPdf = async () => {
                 <option value="Purok 1">Purok 1</option>
                 <option value="Purok 2">Purok 2</option>
                 <option value="Purok 3">Purok 3</option>
-                <option value="Purok 5">Purok 5</option>
+                <option value="Purok 4">Purok 4</option>
               </select></th>
                     <th>Last Name</th>
                     <th>First Name</th>
@@ -453,7 +453,7 @@ const exportreportPdf = async () => {
                         <option value="Purok 1">Purok 1</option>
                         <option value="Purok 2">Purok 2</option>
                         <option value="Purok 3">Purok 3</option>
-                        <option value="Purok 5">Purok 5</option>
+                        <option value="Purok 4">Purok 4</option>
                       </select>
                     </div>
                     <div class="col-md-6 mb-3">
