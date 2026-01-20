@@ -101,6 +101,48 @@ async function updateBhw() {
   }
 }
 
+// Function to delete BHW
+async function deleteBhw() {
+  if (!confirm('Are you sure you want to delete this account?')) return
+
+  try {
+    const { data: { session } } = await supabase.auth.getSession()
+    if (!session) throw new Error('Not authenticated')
+
+    const response = await fetch(
+      'https://hzmhjjvobhugsebwbwqn.supabase.co/functions/v1/delete-bhw-user',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session?.access_token}`
+        },
+        body: JSON.stringify({ userId: selectedBhw.value.id })
+      }
+    )
+
+    if (!response.ok) throw new Error(`HTTP ${response.status}`)
+
+    const result = await response.json()
+    if (result.error) throw new Error(result.error)
+
+    // Remove from list
+    bhwList.value = bhwList.value.filter(b => b.id !== selectedBhw.value.id)
+
+    // Select another or none
+    if (bhwList.value.length > 0) {
+      selectedBhw.value = bhwList.value[0]
+    } else {
+      selectedBhw.value = null
+    }
+
+    alert('Account deleted successfully!')
+  } catch (err) {
+    console.error('Error deleting BHW:', err.message)
+    alert('Failed to delete account: ' + err.message)
+  }
+}
+
 
 // ✅ Fetch BHW users and current user from Supabase Edge Function
 onMounted(async () => {
@@ -197,6 +239,7 @@ function goToRegister() {
             <!-- Edit button - show only for admin or if it's the user's own profile -->
             <div v-if="canEditAllFields || canEditBasicFields" class="mt-3">
               <button class="btn btn-primary me-2" @click="startEdit">Edit</button>
+              <button v-if="canEditAllFields" class="btn btn-danger" @click="deleteBhw">Delete</button>
             </div>
           </div>
 

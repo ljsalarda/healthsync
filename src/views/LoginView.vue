@@ -8,6 +8,7 @@ import { requiredValidator, passwordValidator, emailValidator } from '@/utils/va
 const email = ref('')
 const password = ref('')
 const role = ref('')
+const showPassword = ref(false)
 
 
 
@@ -147,7 +148,7 @@ const handleForgotPassword = async () => {
                 <v-text-field
                   v-model="password"
                   label="Password:"
-                  type="password"
+                  :type="showPassword ? 'text' : 'password'"
                   variant="filled"
                   bg-color="#5b841e"
                   color="white"
@@ -155,7 +156,16 @@ const handleForgotPassword = async () => {
                   class="mx-12 text-white"
                   style="--v-theme-on-surface: white"
                   :rules="passwordRules"
-                />
+                >
+                  <template #append-inner>
+                    <v-icon
+                      :icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+                      color="white"
+                      @click="showPassword = !showPassword"
+                      style="cursor: pointer;"
+                    />
+                  </template>
+                </v-text-field>
 
                 <!-- Select fields -->
                 <v-row class="mx-9">
