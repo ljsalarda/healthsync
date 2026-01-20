@@ -432,7 +432,7 @@ const exportreportPdf = async () => {
         <!-- Modal for Members -->
         <div class="modal fade show d-block" tabindex="-1" v-if="showMembersModal" style="background: rgba(0,0,0,0.6)">
           <div class="modal-dialog modal-xl" style="max-width: 90vw; top: 100px;">
-            <div class="modal-content">
+            <div class="modal-content" style="max-width: 90vw;">
               <div class="modal-header">
                 <h5 class="modal-title">Members of: {{ selectedHead.firstname }} {{ selectedHead.lastname }}</h5>
                 <button type="button" class="btn-close" @click="showMembersModal = false"></button>
