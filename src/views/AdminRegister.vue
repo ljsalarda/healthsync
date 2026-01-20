@@ -37,7 +37,7 @@ const showErrorSnackbar = ref(false)
 
 // options
 const barangayOptions = ['Barangay 5', 'Barangay 6']
-const purokOptions = ['Purok 1', 'Purok 2', 'Purok 3']
+const purokOptions = ['Purok 1', 'Purok 2', 'Purok 3', 'Purok 4']
 
 // validate form fields
 const validateForm = () => {

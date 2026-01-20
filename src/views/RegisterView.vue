@@ -38,7 +38,7 @@ const userBarangay = ref('')
 
 // options
 const barangayOptions = ['Barangay 5', 'Barangay 6']
-const purokOptions = ['Purok 1', 'Purok 2', 'Purok 3']
+const purokOptions = ['Purok 1', 'Purok 2', 'Purok 3', 'Purok 4']
 
 onMounted(async () => {
   const { data: { user } } = await supabase.auth.getUser()
