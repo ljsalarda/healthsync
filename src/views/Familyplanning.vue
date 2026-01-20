@@ -107,7 +107,7 @@ onMounted(async () => {
             </em>
           </p>
 
-          <!-- Responsible Parenthood and Planning Button with Dropdown -->
+          <!-- Responsible Parenthood and Planning Button with Dropdown 
           <div class="dropdown-container">
             <button class="record-btn" @click="openMenu('responsible')">
               Responsible Parenthood and Planning <span>⋮</span>
@@ -116,7 +116,7 @@ onMounted(async () => {
               <button v-if="userRole === 'BHW'" @click="fillIn('responsible')">Fill In</button>
               <button @click="viewRecords('responsible')">View Records</button>
             </div>
-          </div>
+          </div>-->
         </div>
       </div>
     </div>
