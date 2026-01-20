@@ -37,7 +37,7 @@ const goNextPage = () => {
       aria-hidden="true"
     >
       <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content shadow-lg border-0 rounded-4">
+        <div class="modal-content shadow-lg border-0 rounded-4" style="max-width: 90vw;">
           <!-- Custom Header -->
           <div class="modal-header custom-modal-header text-white rounded-top-4">
             <h5 class="modal-title fw-bold" id="learnMoreLabel">Buenavista HealthSync</h5>
