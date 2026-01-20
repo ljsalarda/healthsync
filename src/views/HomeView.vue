@@ -15,7 +15,7 @@ const goNextPage = () => {
     <!-- FULL BACKGROUND WRAPPER -->
     <div class="home-bg d-flex align-items-center justify-content-start">
       <div class="content text-white mb-3 text-start ms-5">
-        <h1>Buenavista HealthSync</h1>
+        <h1 class="fw-bold">Buenavista HealthSync</h1>
         <p>Securing Health Data, Transforming Healthcare for All</p>
         <button 
           class="btn footer-btn mt-2" 
