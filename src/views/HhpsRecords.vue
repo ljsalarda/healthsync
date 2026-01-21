@@ -341,7 +341,7 @@ const exportreportPdf = async () => {
     <div class="hps-bg">
       <div class="container">
         <div class="records-top d-flex align-items-center mb-2">
-          <button class="btn btn-outline-secondary me-3" @click="goBack">← Back</button>
+          <button class="btn btn-outline-secondary me-3" style="background-color: #5b841e; color: white; border-color: #5b841e;" @click="goBack">← Back</button>
           <h3 class="mb-0">Household Head Profiling Records</h3>
           <div class="ms-auto search-box">
             <div class="input-group">
