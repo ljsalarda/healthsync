@@ -31,6 +31,12 @@ const openReport = () => {
 }
 const closeReport = () => (showReport.value = false)
 
+const showActionsDropdown = ref(null)
+
+const toggleActions = (id) => {
+  showActionsDropdown.value = showActionsDropdown.value === id ? null : id
+}
+
 onMounted(async () => {
   await fetchHeadRecords()
 })
@@ -413,10 +419,19 @@ const exportreportPdf = async () => {
                     <td>{{ record.female_count }}</td>
                     <td>{{ record.male_count }}</td>
                     <td>
-                      <button class="btn btn-primary btn-sm me-2" @click="viewMembers(record)">View Members</button>
-                      <button v-if="userRole === 'BHW'" class="btn btn-secondary btn-sm me-2" @click="editRecord(record)">Edit</button>
-                      <button v-if="userRole === 'Admin'" class="btn btn-danger btn-sm me-2" @click="deleteRecord(record)">Delete</button>
-                      <button v-if="userRole === 'Admin'" class="btn btn-warning btn-sm" @click="archiveRecord(record)">Archive</button>
+                      <v-menu :model-value="showActionsDropdown === record.head_id" @update:model-value="val => val ? showActionsDropdown = record.head_id : showActionsDropdown = null" offset-y>
+                        <template #activator="{ props }">
+                          <v-btn icon v-bind="props" size="small">
+                            <v-icon>mdi-dots-vertical</v-icon>
+                          </v-btn>
+                        </template>
+                        <v-list>
+                          <v-list-item @click="viewMembers(record)">View Members</v-list-item>
+                          <v-list-item v-if="userRole === 'BHW'" @click="editRecord(record)">Edit</v-list-item>
+                          <v-list-item v-if="userRole === 'Admin'" @click="deleteRecord(record)">Delete</v-list-item>
+                          <v-list-item v-if="userRole === 'Admin'" @click="archiveRecord(record)">Archive</v-list-item>
+                        </v-list>
+                      </v-menu>
                     </td>
                   </tr>
 

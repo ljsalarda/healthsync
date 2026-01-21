@@ -20,6 +20,12 @@ const selectedPurok = ref('')
 const editRecord = ref(null)
 const showEditModal = ref(false)
 
+const showActionsDropdown = ref(null)
+
+const toggleActions = (id) => {
+  showActionsDropdown.value = showActionsDropdown.value === id ? null : id
+}
+
 const showReport = ref(false)
 const reportRef = ref(null)
 
@@ -421,9 +427,18 @@ const exportreportPdf = async () => {
                     <td>{{ record.fbDate }}</td>
                     <td>{{ record.changeMethod }}</td>
                     <td>
-                      <button v-if="userRole === 'BHW'" class="btn btn-secondary btn-sm me-2" @click="editRecordFunc(record)">Edit</button>
-                      <button v-if="userRole === 'Admin'" class="btn btn-danger btn-sm me-2" @click="deleteRecord(record)">Delete</button>
-                      <button v-if="userRole === 'Admin'" class="btn btn-warning btn-sm" @click="archiveRecord(record)">Archive</button>
+                      <v-menu :model-value="showActionsDropdown === record.id" @update:model-value="val => val ? showActionsDropdown = record.id : showActionsDropdown = null" offset-y>
+                        <template #activator="{ props }">
+                          <v-btn icon v-bind="props" size="small">
+                            <v-icon>mdi-dots-vertical</v-icon>
+                          </v-btn>
+                        </template>
+                        <v-list>
+                          <v-list-item v-if="userRole === 'BHW'" @click="editRecordFunc(record)">Edit</v-list-item>
+                          <v-list-item v-if="userRole === 'Admin'" @click="deleteRecord(record)">Delete</v-list-item>
+                          <v-list-item v-if="userRole === 'Admin'" @click="archiveRecord(record)">Archive</v-list-item>
+                        </v-list>
+                      </v-menu>
                     </td>
                   </tr>
 
