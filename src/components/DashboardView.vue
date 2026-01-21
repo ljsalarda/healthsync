@@ -169,8 +169,7 @@ async function saveProfile() {
         <v-btn class="desktop-only" text to="/calendar">Calendar</v-btn>
         <v-btn class="desktop-only" text to="/inventory">Inventory</v-btn>
 
-        <!-- LOGOUT -->
-        <v-btn class="desktop-only" text @click="logout">Log out</v-btn>
+        <!-- LOGOUT (moved to avatar menu) -->
 
         <!-- USER AVATAR MENU -->
         <v-menu v-model="showUserMenu" offset-y transition="scale-transition" min-width="320">
@@ -216,6 +215,15 @@ async function saveProfile() {
                 <v-icon left>mdi-account-edit</v-icon>
                 Edit Profile
               </v-btn>
+
+              <v-divider class="my-4"></v-divider>
+
+              <v-card-actions class="justify-center">
+                <v-btn class="logout-btn text-white" @click="logout">
+                  <v-icon left>mdi-logout</v-icon>
+                  Log out
+                </v-btn>
+              </v-card-actions>
             </v-card-text>
           </v-card>
         </v-menu>
@@ -340,6 +348,24 @@ async function saveProfile() {
 
 :deep(.mobile-drawer .v-list-item-title) {
   color: white !important;
+}
+
+.logout-btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  background: #e53935 !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.14);
+  transition: background 150ms ease, transform 80ms ease;
+}
+
+.logout-btn:hover {
+  background: #c62828 !important;
+  transform: translateY(-1px);
+}
+
+.logout-btn:active {
+  transform: translateY(0);
 }
 
 
