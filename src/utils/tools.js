@@ -45,7 +45,7 @@ export async function createTool({ name, quantity = 0 }) {
  *
  * Returns the inserted availed_tools row on success.
  */
-export async function availTool({ tool_id, name, purok, quantity }) {
+export async function availTool({ tool_id, name, purok, quantity, expectedtoreturn = null }) {
   if (!tool_id) throw new Error('tool_id required')
   quantity = Number(quantity)
   if (!quantity || quantity <= 0) throw new Error('quantity must be > 0')
@@ -71,9 +71,12 @@ export async function availTool({ tool_id, name, purok, quantity }) {
   }
 
   // Step 3: insert availed_tools log
+  const insertPayload = { tool_id, name, purok, quantity }
+  if (expectedtoreturn) insertPayload.expectedtoreturn = expectedtoreturn
+
   const { data: availRow, error: availErr } = await supabase
     .from('availed_tools')
-    .insert({ tool_id, name, purok, quantity })
+    .insert(insertPayload)
     .select()
     .single()
 

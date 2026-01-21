@@ -45,7 +45,7 @@ export async function createMedicine({ name, quantity = 0 }) {
  *
  * Returns the inserted availed_medicine row on success.
  */
-export async function availMedicine({ medicine_id, name, purok, quantity }) {
+export async function availMedicine({ medicine_id, name, purok, quantity, expectedtoreturn = null }) {
   if (!medicine_id) throw new Error('medicine_id required')
   quantity = Number(quantity)
   if (!quantity || quantity <= 0) throw new Error('quantity must be > 0')
@@ -71,9 +71,12 @@ export async function availMedicine({ medicine_id, name, purok, quantity }) {
   }
 
   // Step 3: insert availed_medicine log
+  const insertPayload = { medicine_id, name, purok, quantity }
+  if (expectedtoreturn) insertPayload.expectedtoreturn = expectedtoreturn
+
   const { data: availRow, error: availErr } = await supabase
     .from('availed_medicine')
-    .insert({ medicine_id, name, purok, quantity })
+    .insert(insertPayload)
     .select()
     .single()
 

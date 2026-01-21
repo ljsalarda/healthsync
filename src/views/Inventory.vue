@@ -18,12 +18,12 @@ const userRole = ref(null)
 
 // Modal state for availing tool
 const showAvailModal = ref(false)
-const availForm = ref({ name: '', purok: '', quantity: 1 })
+const availForm = ref({ name: '', purok: '', quantity: 1, expectedtoreturn: '' })
 const selectedTool = ref(null)
 
 // Modal state for availing medicine
 const showAvailMedicineModal = ref(false)
-const availMedicineForm = ref({ name: '', purok: '', quantity: 1 })
+const availMedicineForm = ref({ name: '', purok: '', quantity: 1, expectedtoreturn: '' })
 const selectedMedicine = ref(null)
 
 // Computed: only show tools with quantity > 0
@@ -39,14 +39,14 @@ const availableMedicine = computed(() =>
 // Avail a tool (open modal)
 const availTool = (tool) => {
   selectedTool.value = tool
-  availForm.value = { name: '', purok: '', quantity: 1 }
+  availForm.value = { name: '', purok: '', quantity: 1, expectedtoreturn: '' }
   showAvailModal.value = true
 }
 
 // Avail a medicine (open modal)
 const availMedicine = (med) => {
   selectedMedicine.value = med
-  availMedicineForm.value = { name: '', purok: '', quantity: 1 }
+  availMedicineForm.value = { name: '', purok: '', quantity: 1, expectedtoreturn: '' }
   showAvailMedicineModal.value = true
 }
 
@@ -62,11 +62,19 @@ const confirmAvail = async () => {
   try {
     // selectedTool is expected to come from DB and include tool_id
     if (!selectedTool.value?.tool_id) throw new Error('Tool not recognized')
+
+    // convert date input to ISO timestamp if provided
+    let expected = availForm.value.expectedtoreturn
+    if (expected) {
+      expected = new Date(expected).toISOString()
+    }
+
     await toolsApi.availTool({
       tool_id: selectedTool.value.tool_id,
       name: availForm.value.name,
       purok: availForm.value.purok,
       quantity: availForm.value.quantity,
+      expectedtoreturn: expected,
     })
 
     // refresh list from DB
@@ -90,11 +98,16 @@ const confirmAvailMedicine = async () => {
   try {
     // selectedMedicine is expected to come from DB and include medicine_id
     if (!selectedMedicine.value?.medicine_id) throw new Error('Medicine not recognized')
+    // convert date input to ISO timestamp if provided
+    let expected = availMedicineForm.value.expectedtoreturn
+    if (expected) expected = new Date(expected).toISOString()
+
     await medicineApi.availMedicine({
       medicine_id: selectedMedicine.value.medicine_id,
       name: availMedicineForm.value.name,
       purok: availMedicineForm.value.purok,
       quantity: availMedicineForm.value.quantity,
+      expectedtoreturn: expected,
     })
 
     // refresh list from DB
@@ -255,6 +268,10 @@ onMounted(async () => {
             Quantity:
             <input v-model.number="availForm.quantity" type="number" min="1" :max="selectedTool?.quantity" />
           </label>
+          <label>
+            Expected to Return:
+            <input v-model="availForm.expectedtoreturn" type="date" />
+          </label>
           <div class="modal-actions">
             <button @click="confirmAvail">Confirm</button>
             <button @click="showAvailModal = false">Cancel</button>
@@ -298,6 +315,10 @@ onMounted(async () => {
           <label>
             Quantity:
             <input v-model.number="availMedicineForm.quantity" type="number" min="1" :max="selectedMedicine?.quantity" />
+          </label>
+          <label>
+            Expected to Return:
+            <input v-model="availMedicineForm.expectedtoreturn" type="date" />
           </label>
           <div class="modal-actions">
             <button @click="confirmAvailMedicine">Confirm</button>
